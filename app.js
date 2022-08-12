@@ -7,17 +7,18 @@ const bodyParser = require("body-parser");
 const multer = require("multer");
 const fs = require("fs");
 const { log } = require("console");
+const url = require("url");
 const directory = "./uploads";
 const mongoose = require("mongoose");
 var MongoClient = require("mongodb").MongoClient;
-
-var paths = "";
+var database_url = "mongodb://127.0.0.1:27017/ecom";
+let resultFromDatabase = "";
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
+app.use("/uploads", express.static("uploads"));
 app.use(bodyParser.urlencoded({ extended: true }));
-
+var ObjectId = require('mongodb').ObjectId;
 //connection establish
-
 
 // MongoClient.connect("mongodb://127.0.0.1:27017/ecom", function(err, db) {
 //   if (err) throw err;
@@ -25,18 +26,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //   db.close();
 // });
 
-
 mongoose.connect("mongodb://127.0.0.1:27017/ecom");
 var db = mongoose.connection;
 db.on("error", console.log.bind(console, "connection error"));
 db.once("open", function (callback) {
   console.log("connection succeeded");
 });
-
-
-
-
-
 
 // checking if the upload folder exist
 if (fs.existsSync(directory)) {
@@ -60,7 +55,40 @@ const storage = multer.diskStorage({
 var upload = multer({ storage: storage }).any(directory);
 
 app.get("/", function (req, res) {
-  res.render("index");
+  // Reciving data form mongodb
+  MongoClient.connect(database_url, function (err, db) {
+    if (err) throw err;
+    var dbo = db.db("ecom"); //database name
+    dbo
+      .collection("products") //collection name
+      .find({})
+      .toArray(function (err, result) {
+        if (err) throw err;
+
+        for (var i = 0; i < result.length; i++) {
+          resultFromDatabase = result;
+        }
+        db.close();
+      });
+  });
+  res.render("index", { ProductListArr: resultFromDatabase });
+});
+
+//product view html page
+app.get("/productview", function (req, res) {
+  var fullUrl = req.protocol + "://" + req.get("host") + req.originalUrl; // getting the full current url of the route
+  const current_url = new URL(fullUrl);
+  // get access to URLSearchParams object
+  const search_params = current_url.searchParams;
+
+  // get url parameters
+  const id = search_params.get("id");
+
+  console.log("id is ", id);
+  let ren=findInDatabase(id);
+
+  console.log("This is ren  ",ren);
+  res.render("productview",{Render:ren});
 });
 
 app.get("/upload", (req, res) => {
@@ -75,9 +103,9 @@ app.post("/upload", (req, res) => {
     }
 
     //console.log('path ',req.files);
-     // TODO:store this path in mongo db database
+    // TODO:store this path in mongo db database
 
-    console.log("product name", req.body.ProductTitle ,"paths ",paths);
+    console.log("product name", req.body.ProductTitle, "paths ");
     let schema = {
       ProductName: req.body.ProductTitle,
       ProductPrice: req.body.ProductPrice,
@@ -107,9 +135,16 @@ function insertIndatabase(schema) {
     console.log("record insert successfully");
   });
 }
+let dbResult = "";
+function findInDatabase(dbId) {
 
-// TODO things to add in this project
-/**
- * establish a database connection
- *
- */
+let o_id = new ObjectId(dbId);   // id as a string is passed
+
+  db.collection("products").findOne({"_id":o_id},function(err, result) {
+  dbResult=result;
+  });
+
+return dbResult;
+
+    
+}
