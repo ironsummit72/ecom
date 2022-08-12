@@ -1,0 +1,60 @@
+.sec1 {
+    height: auto;
+    width: 80vw;
+    display: flex;
+    justify-content: space-around;
+    margin-left: 10%;
+    margin-top: 1%;
+    padding: 1%;
+  }
+  .imagepreview {
+    margin-top: 2%;
+    margin-left: 5%;
+    height: auto;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+  }
+  .product_image {
+    height: auto;
+    width: 400px;
+  }
+  .upload_btn,
+  .upload_image {
+    border: none;
+    padding: 20px;
+    background-color: brown;
+    color: white;
+    margin-top: 10px;
+    cursor: pointer;
+    width: 400px;
+  }
+  .product_form {
+    height: auto;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 2%;
+  }
+  .inp {
+    height: 5%;
+    margin: 1% 5%;
+    padding: 5%;
+    font-size: 1rem;
+    font-weight: 800;
+    border-radius: 5px;
+  }
+  label {
+    margin: 0% 5%;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  /* to remove the arrow form number field  */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+ 

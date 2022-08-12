@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style/upload.css">
+    <title>Upload</title>
+  </head>
+  
+  <body>
+    <%- include('partials/header'); -%>
+    <section class="sec1">
+      <div class="imagepreview">
+        <img class="product_image" id="image-preview" alt="" />
+       
+      </div>
+      <form class="product_form" action="/upload" method="post" enctype="multipart/form-data">
+        <label class="product_name" for="productname">Product Name</label>
+        <input class="inp" type="text" name="ProductTitle" placeholder="Product Title" />
+        <label class="product_price" for="productprice">Product Price</label>
+        <input
+          class="inp"
+          type="number"
+          name="ProductPrice"
+          placeholder="Product Price in Rupees"
+        />
+        <input
+        type="file"
+        class="file upload_image"
+        name="uploadimg"
+        accept='image/*'
+        multiple
+        onchange="showPreview(event)"
+      />
+        <button class="upload_btn" type="submit">Upload</button>
+      </form>
+    </section>
+  </body>
+  <script>
+    function showPreview(event) {
+      if (event.target.files.length > 0) {
+        var src = URL.createObjectURL(event.target.files[0]);
+        var preview = document.getElementById("image-preview");
+        preview.src = src;
+        preview.style.display = "block";
+      }
+    }
+  </script>
+</html>

@@ -1,0 +1,51 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* fontlinks  */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,300&family=Sacramento&display=swap");
+.products {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.product_container {
+  height: 600px;
+  width: 330px;
+  border-radius: 5px;
+  margin-left: 4%;
+  margin-top: 8%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+}
+.productimage {
+  height: auto;
+  width: 300px;
+  position: relative;
+  margin-left: 5%;
+  margin-top: 5%;
+}
+.desc {
+  height: 80px;
+  margin-left: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  color: brown;
+}
+.producttitle {
+  font-family: sans-serif;
+  margin-bottom: 2%;
+  margin-top: 2%;
+}
+.productprice {
+  font-family: "Sacramento", cursive;
+}
+.product-title-link{
+  text-decoration: none;
+  color: inherit;
+}
