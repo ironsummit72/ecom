@@ -80,18 +80,24 @@ app.get("/",async function (req, res) {
   res.render("index", { ProductListArr: resultFromDatabase });
 });
 //product view html page
-app.get("/productview",  function (req, res) {
+app.get("/productview", function (req, res) {
   var fullUrl = req.protocol + "://" + req.get("host") + req.originalUrl; // getting the full current url of the route
   const current_url = new URL(fullUrl);
   // get access to URLSearchParams object
   const search_params = current_url.searchParams;
   // get url parameters
   const id = search_params.get("id");
-  console.log("id is ", id);
-  let ren=findInDatabase(id);
-  console.log("This is ren  ",ren);
-  
-  res.render("productview",{Render:ren});
+  // console.log("id is ", id);
+findInDatabase(id,(dbId)=>{
+ let o_id = new ObjectId(dbId);   // id as a string is passed
+  db.collection("products").findOne({"_id":o_id},function(err, result) {
+   dbResult=result;
+   res.render("productview",{Render:result});
+  });
+  });
+  // console.log("This is ren  ",ren);
+ 
+   
 });
 
 app.get("/upload", (req, res) => {
@@ -127,15 +133,10 @@ function insertIndatabase(schema) {
     console.log("record insert successfully");
   });
 }
-let dbResult = "";
- function findInDatabase(dbId) {
 
-let o_id = new ObjectId(dbId);   // id as a string is passed
+ function findInDatabase(dbId,callback) {
+callback(dbId)
 
-  db.collection("products").findOne({"_id":o_id},function(err, result) {
-   dbResult=result;
-  });
-return dbResult;  
 }
 // features to be added 
 
