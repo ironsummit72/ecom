@@ -1,4 +1,4 @@
-const port = 800;
+const port = process.env.PORT || 3000;
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -19,13 +19,6 @@ app.use("/uploads", express.static("uploads"));
 app.use(bodyParser.urlencoded({ extended: true }));
 var ObjectId = require('mongodb').ObjectId;
 //connection establish
-
-// MongoClient.connect("mongodb://127.0.0.1:27017/ecom", function(err, db) {
-//   if (err) throw err;
-//   console.log("Database created!");
-//   db.close();
-// });
-
 mongoose.connect("mongodb://127.0.0.1:27017/ecom");
 var db = mongoose.connection;
 db.on("error", console.log.bind(console, "connection error"));
@@ -51,7 +44,7 @@ const storage = multer.diskStorage({
   },
 });
 
-//const upload = multer({ storage: storage });
+
 var upload = multer({ storage: storage }).any(directory);
 async function wait (ms) {
   return new Promise((resolve, reject) => {
@@ -87,7 +80,7 @@ app.get("/productview", function (req, res) {
   const search_params = current_url.searchParams;
   // get url parameters
   const id = search_params.get("id");
-  // console.log("id is ", id);
+
 findInDatabase(id,(dbId)=>{
  let o_id = new ObjectId(dbId);   // id as a string is passed
   db.collection("products").findOne({"_id":o_id},function(err, result) {
@@ -95,9 +88,6 @@ findInDatabase(id,(dbId)=>{
    res.render("productview",{Render:result});
   });
   });
-  // console.log("This is ren  ",ren);
- 
-   
 });
 
 app.get("/upload", (req, res) => {
@@ -123,7 +113,7 @@ app.post("/upload", (req, res) => {
   });
 });
 
-app.listen(port, function () {
+app.listen(port,"192.168.1.102", function () {
   console.log(`listening on ${port}`);
 });
 
@@ -138,8 +128,8 @@ function insertIndatabase(schema) {
 callback(dbId)
 
 }
-// features to be added 
 
 
-// TODO: load the products images and data using async or promises 
+
+
 
