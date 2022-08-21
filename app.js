@@ -1,4 +1,4 @@
-const port = 80;
+const port = 800;
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -53,8 +53,13 @@ const storage = multer.diskStorage({
 
 //const upload = multer({ storage: storage });
 var upload = multer({ storage: storage }).any(directory);
-
-app.get("/", function (req, res) {
+async function wait (ms) {
+  return new Promise((resolve, reject) => {
+    setTimeout(resolve, ms)
+   
+  });
+}
+app.get("/",async function (req, res) {
   // Reciving data form mongodb
   MongoClient.connect(database_url, function (err, db) {
     if (err) throw err;
@@ -62,32 +67,30 @@ app.get("/", function (req, res) {
     dbo
       .collection("products") //collection name
       .find({})
-      .toArray(function (err, result) {
+      .toArray( function (err, result) {
         if (err) throw err;
 
         for (var i = 0; i < result.length; i++) {
-          resultFromDatabase = result;
+        resultFromDatabase = result;
         }
         db.close();
       });
   });
+  await wait(5*100);
   res.render("index", { ProductListArr: resultFromDatabase });
 });
-
 //product view html page
-app.get("/productview", function (req, res) {
+app.get("/productview",  function (req, res) {
   var fullUrl = req.protocol + "://" + req.get("host") + req.originalUrl; // getting the full current url of the route
   const current_url = new URL(fullUrl);
   // get access to URLSearchParams object
   const search_params = current_url.searchParams;
-
   // get url parameters
   const id = search_params.get("id");
-
   console.log("id is ", id);
   let ren=findInDatabase(id);
-
   console.log("This is ren  ",ren);
+  
   res.render("productview",{Render:ren});
 });
 
@@ -101,11 +104,7 @@ app.post("/upload", (req, res) => {
       console.log(err);
       return;
     }
-
-    //console.log('path ',req.files);
-    // TODO:store this path in mongo db database
-
-    console.log("product name", req.body.ProductTitle, "paths ");
+   console.log("product name", req.body.ProductTitle, "paths ");
     let schema = {
       ProductName: req.body.ProductTitle,
       ProductPrice: req.body.ProductPrice,
@@ -116,13 +115,6 @@ app.post("/upload", (req, res) => {
     res.end("Your files uploaded.");
     console.log("Yep yep!");
   });
-
-  // console.log(
-  //   "Product Name: " +
-  //     req.body.ProductTitle +
-  //     " ProductPrice: " +
-  //     req.body.ProductPrice
-  // );
 });
 
 app.listen(port, function () {
@@ -136,15 +128,17 @@ function insertIndatabase(schema) {
   });
 }
 let dbResult = "";
-function findInDatabase(dbId) {
+ function findInDatabase(dbId) {
 
 let o_id = new ObjectId(dbId);   // id as a string is passed
 
   db.collection("products").findOne({"_id":o_id},function(err, result) {
-  dbResult=result;
+   dbResult=result;
   });
-
-return dbResult;
-
-    
+return dbResult;  
 }
+// features to be added 
+
+
+// TODO: load the products images and data using async or promises 
+
