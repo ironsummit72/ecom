@@ -1,0 +1,73 @@
+@media only screen and (max-width: 500px) {
+
+ /* font import */
+ @import url("https://fonts.googleapis.com/css2?family=Alegreya&display=swap");
+
+ * {
+   margin: 0;
+   padding: 0;
+ }
+ .products {
+   height: 100vh;
+   width: auto;
+ }
+ .product_container {
+   width: auto;
+   height: 100vh;
+   display: flex;
+   flex-direction: columns;
+ }
+ .products_images {
+   margin: 50px;
+   margin-left: 15%;
+   width: 500px;
+   height: auto;
+   display: grid;
+   grid-template-columns: 380px;
+   grid-template-rows: auto;
+   grid-gap: 10px;
+ }
+ .product_InfoWrapper {
+   width: 500px;
+   height: auto;
+   margin: 50px;
+   margin-left: 15%;
+ }
+ .productimage {
+   width: 380px;
+   height: auto;
+ }
+ .productMeta {
+   margin: 10%;
+ }
+ .producttitle {
+   font-size: 20px;
+   line-height: 25px;
+   color: #000;
+   margin-bottom: 10px;
+   padding-right: 30px;
+   font-family: "Alegreya", serif;
+ }
+ .productprice {
+   font-family: "Alegreya", serif;
+   font-size: 20px;
+ }
+ .addtocart {
+   width: 80%;
+   height: 50px;
+   text-transform: uppercase;
+   border-radius: 8px;
+   border: none;
+   margin: 10%;
+   margin-left: 10%;
+   color: white;
+   background-color: #441313;
+   cursor: pointer;
+   transition: 0.3s;
+ }
+ .addtocart:hover {
+   background-color: white;
+   color: #441313;
+   border: #441313 solid 0.5px;
+ }
+}
