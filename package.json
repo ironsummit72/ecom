@@ -9,13 +9,16 @@
   "author": "sumit",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.0",
+    "cookie-parser": "^1.4.6",
     "ejs": "^3.1.8",
     "express": "^4.18.1",
     "mongodb": "^4.8.1",
     "mongoose": "^6.5.1",
     "multer": "^1.4.5-lts.1",
     "nodemon": "^2.0.19",
-    "request-ip": "^3.3.0"
+    "request-ip": "^3.3.0",
+    "uuid": "^8.3.2"
   }
 }

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+  </head>
+  <style>
+    .form-container {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .form {
+      height: 210px;
+      width: 250px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-direction: column;
+    }
+    input {
+      width: 100%;
+      height: 40px;
+    }
+    .btn-submit {
+      background-color: brown;
+      color: white;
+      width: 100%;
+      height: 40px;
+      cursor: pointer;
+      border: none;
+    }
+  </style>
+  <body>
+    <div class="form-container">
+      <h4>Register for Admin</h4>
+      <form action="/register" class="form" method="post">
+        <input
+          type="email"
+          class="name"
+          placeholder="Enter your Email"
+          name="email"
+          required
+          autocomplete="off"
+          />
+        <input
+          type="text"
+          class="username"
+          placeholder="Enter your Username"
+          required
+          autocomplete="off"
+          name="username"
+          />
+        <input
+          type="password"
+          class="password"
+          placeholder="Enter your Password"
+          required
+          autocomplete="off"
+          name="password"
+          />
+        <button type="submit" class="btn-submit">Register</button>
+      </form>
+    </div>
+  </body>
+</html>
