@@ -8,17 +8,29 @@
   </head>
   <body>
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,300&family=Sacramento&display=swap');
-      
+      @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,300&family=Sacramento&display=swap");
+
       ul > li > a {
         text-decoration: none;
-        font-family:  sans-serif;
+        font-family: sans-serif;
+        font-weight: bold;
       }
-      .upload {
-        margin-left: 15px;
-        background-color: brown;
-        color: white;
-        padding: 10px;
+      ul > li {
+        font-weight: bold;
+        font-family: sans-serif;
+      }
+      .cart {
+        width: 20px;
+        height: 20px;
+      }
+      .cart-counter {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        background: #ddd;
+        text-align: center;
+        border-radius: 50%;
+        margin-left: 10px;
       }
     </style>
     <header class="subheader">
@@ -47,7 +59,12 @@
         <li><a href=""></a>INR</li>
       </ul>
       <ul>
-        <li><a class="upload" href="/upload">Upload</a></li>
+        <li>
+          <a href="/cart">
+            <img src="/icons/cart.svg" alt="" class="cart" />
+            <span class="cart-counter">1</span>
+          </a>
+        </li>
       </ul>
     </header>
   </body>
