@@ -4,40 +4,38 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style/productview.css">
-    <link rel="stylesheet" href="stylemob/productviewmob.css" media="screen and (max-device-width: 500px)">
+    <link rel="stylesheet" href="style/productview.css" />
+    <link
+      rel="stylesheet"
+      href="stylemob/productviewmob.css"
+      media="screen and (max-device-width: 500px)"
+    />
     <title>Product View</title>
   </head>
-  <style>
-   
-  </style>
+  <style></style>
   <body>
     <%- include('partials/header'); -%> <%- include('partials/subheader'); -%>
 
     <section class="products">
       <div class="product_container">
         <div class="products_images">
-            <% for(var i in Render.Paths) { %>
-            
-                <img src="<%=Render.Paths[i].path%>" alt="" class="productimage" />
+          <% for(var i in Render.Paths) { %>
 
-                <%  }%>
-                
-          
-    
+          <img src="<%=Render.Paths[i].path%>" alt="" class="productimage" />
+
+          <% }%>
         </div>
         <div class="product_InfoWrapper">
           <div class="productMeta">
-            <h2 class="producttitle">
-                <%=Render.ProductName%>
-            </h2>
-            <span class="productprice">Rs.     <%=Render.ProductPrice%></span>
-            <form action="" method="post">
-              <button type="submit" class="addtocart">Add To Cart</button>
-            </form>
+            <h2 class="producttitle"><%=Render.ProductName%></h2>
+            <span class="productprice">Rs. <%=Render.ProductPrice%></span>
+            <form action="" method="post"></form>
+            <button class="addtocart" id="addtocart">Add To Cart</button>
+            <p id="message" class="message"></p>
           </div>
         </div>
       </div>
     </section>
   </body>
+  <script src="/scripts/addtocart.js"></script>
 </html>

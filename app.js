@@ -86,6 +86,7 @@ app.get("/productview", function (req, res) {
   const search_params = current_url.searchParams;
   // get url parameters
   const id = search_params.get("id");
+  //TODO :getting id of database
 
   findInDatabase(id, (dbId) => {
     let o_id = new ObjectId(dbId); // id as a string is passed
@@ -95,7 +96,9 @@ app.get("/productview", function (req, res) {
     });
   });
 });
-
+app.get('/cart',(req,res)=>{
+  res.render('cart')
+})
 app.get("/upload", (req, res) => {
   let cookieSessionUuid = req.cookies.userData.uuid;
   checkSession(
