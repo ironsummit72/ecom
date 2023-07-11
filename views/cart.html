@@ -12,37 +12,43 @@
     <section id="cart-section" class="cart-section">
 <div class="cart-containers" id="cart-containers">
   <h1 id="heading">Shopping Cart</h1>
+  <button class="delete-btn" id="delete-cart-items">Delete All Cart Items</button>
   <hr>
     </section> 
   </body>
   <script>
    // DOM Nodes
-   const cartcontainers=document.getElementById('cart-containers');
-
-
-   
-
+   const cartcontainers=document.getElementById('cart-containers'); 
     let cartdata = localStorage.getItem("cartData");
+    const deletecartBtn=document.getElementById('delete-cart-items');
+    deletecartBtn.addEventListener('click',()=>{
+  let isRemove= confirm("are you sure you want to remove all items from cart ?");
+  if(isRemove)
+  {
+    localStorage.removeItem('cartData')
+  }
+
+    })
 
     getData(cartdata);
     async function getData(data) {
       try {
         const response = await fetch(
-          window.location.origin+"/cartData?cartitems=" + data
-        );
-        console.log();
+          window.location.origin+"/cartData?cartitems=" + data);
         const cartData = await response.text();
         let fromServer = JSON.parse(cartData);
         fromServer.forEach((data) => {
           let ProductName = data.ProductName;
           let ProductPrice = data.ProductPrice;
           let ProductImage = data.Paths[0].path;
-          CreateCartItems(ProductName, ProductPrice, ProductImage);
+          let dbId=data._id
+          console.log("data ",dbId);
+          CreateCartItems(ProductName, ProductPrice, ProductImage,dbId);
         });
       } catch (error) {}
     }
 
-    function CreateCartItems(ProductName, ProductPrice, ImageUrl) {
+    function CreateCartItems(ProductName, ProductPrice, ImageUrl,DbId) {
       const cartItem=document.createElement('div');
       cartItem.className="cartItems"; //setting class
       const productimage=document.createElement('img');
@@ -50,9 +56,10 @@
       productimage.src=ImageUrl; // adding image url
       const infoDiv=document.createElement('div');// div element created
       infoDiv.className="info";
-      const producttitle=document.createElement('h2'); //product title created
+      const producttitle=document.createElement('a'); //product title created
       producttitle.className='producttitle';
       producttitle.innerText=ProductName;
+      producttitle.href="productview?id="+DbId
       const productprice=document.createElement('h3')
       productprice.className="productprice";
       productprice.innerText="Rs. "+ProductPrice;
