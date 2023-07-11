@@ -6,7 +6,7 @@ const ejs = require("ejs");
 const bodyParser = require("body-parser");
 const multer = require("multer");
 const fs = require("fs");
-const { log } = require("console");
+const { log, error } = require("console");
 const url = require("url");
 const directory = "./uploads";
 const mongoose = require("mongoose");
@@ -114,6 +114,7 @@ app.get("/cartData", (req, res) => {
   const cartitems = search_params.get("cartitems");
   let IdToArray = JSON.parse(cartitems);
 
+ try{
   IdToArray.forEach((items) => {
     findInDatabase(items, (dbId) => {
       let o_id = new ObjectId(dbId); // id as a string is passed
@@ -124,6 +125,11 @@ app.get("/cartData", (req, res) => {
       });
     });
   });
+ }
+ catch(error)
+ {
+  console.log("no items in cart");
+ }
 
 res.send(Cartarray)
 
