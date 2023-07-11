@@ -11,16 +11,22 @@
   <body>
     <section id="cart-section" class="cart-section">
 <div class="cart-containers" id="cart-containers">
+  <hr>
   <h1 id="heading">Shopping Cart</h1>
   <button class="delete-btn" id="delete-cart-items">Delete All Cart Items</button>
-  <hr>
     </section> 
+    <hr class="total-hr">
+    <h3 id="cart-amount" class="cart-amount">Total </h3>
   </body>
   <script>
    // DOM Nodes
    const cartcontainers=document.getElementById('cart-containers'); 
     let cartdata = localStorage.getItem("cartData");
     const deletecartBtn=document.getElementById('delete-cart-items');
+    const cartAmount=document.getElementById('cart-amount');
+    let cartTotal=0;
+    let cartItemPrices=[];
+
     deletecartBtn.addEventListener('click',()=>{
   let isRemove= confirm("are you sure you want to remove all items from cart ?");
   if(isRemove)
@@ -42,13 +48,21 @@
           let ProductPrice = data.ProductPrice;
           let ProductImage = data.Paths[0].path;
           let dbId=data._id
+         cartItemPrices.push(parseInt(data.ProductPrice));
+        cartTotal= cartItemPrices.reduce((a, b) => a + b, 0)
+
+
           console.log("data ",dbId);
           CreateCartItems(ProductName, ProductPrice, ProductImage,dbId);
         });
+       cartAmount.innerText="Total: Rs. "+cartTotal
       } catch (error) {}
+     
     }
+   
 
     function CreateCartItems(ProductName, ProductPrice, ImageUrl,DbId) {
+      
       const cartItem=document.createElement('div');
       cartItem.className="cartItems"; //setting class
       const productimage=document.createElement('img');
@@ -71,11 +85,7 @@
       cartItem.appendChild(infoDiv);
       infoDiv.appendChild(producttitle)
       infoDiv.appendChild(productprice)
-
       cartcontainers.appendChild(cartItem)
-
-
-   
     }
   </script>
 </html>

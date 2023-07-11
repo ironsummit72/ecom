@@ -99,7 +99,18 @@ left: 2%;
   margin-left: 3%;
   margin-top: 8%;
 }
+.cart-amount{
+  float: right;
+  position: relative;
+  right: 100px;
+  top:30px ;
+  padding: 20px;
 
+}
+.total-hr{
+  margin-top: 20px;
+
+}
 
 /* .Shopping-Cart {
     background-color: white;
