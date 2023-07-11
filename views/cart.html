@@ -55,7 +55,7 @@
           console.log("data ",dbId);
           CreateCartItems(ProductName, ProductPrice, ProductImage,dbId);
         });
-       cartAmount.innerText="Total: Rs. "+cartTotal
+       cartAmount.innerText="Total: Rs. "+addCommas(cartTotal)
       } catch (error) {}
      
     }
@@ -76,7 +76,7 @@
       producttitle.href="productview?id="+DbId
       const productprice=document.createElement('h3')
       productprice.className="productprice";
-      productprice.innerText="Rs. "+ProductPrice;
+      productprice.innerText="Rs. "+addCommas(ProductPrice);
 
 
 
@@ -87,5 +87,12 @@
       infoDiv.appendChild(productprice)
       cartcontainers.appendChild(cartItem)
     }
+    function addCommas(x) {
+    x = x.toString();
+    var pattern = /(-?\d+)(\d{3})/;
+    while (pattern.test(x))
+        x = x.replace(pattern, "$1,$2");
+    return x;
+}
   </script>
 </html>
