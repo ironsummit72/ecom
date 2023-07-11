@@ -6,7 +6,7 @@ const ejs = require("ejs");
 const bodyParser = require("body-parser");
 const multer = require("multer");
 const fs = require("fs");
-const { log } = require("console");
+const { log, error } = require("console");
 const url = require("url");
 const directory = "./uploads";
 const mongoose = require("mongoose");
@@ -19,6 +19,8 @@ app.use("/uploads", express.static("uploads"));
 app.use(bodyParser.urlencoded({ extended: true }));
 var ObjectId = require("mongodb").ObjectId;
 let onIp = false;
+
+let Cartarray=[]
 const uuid = require("./modules/uuid");
 var bcrypt = require("bcryptjs");
 var cookieParser = require("cookie-parser");
@@ -86,15 +88,56 @@ app.get("/productview", function (req, res) {
   const search_params = current_url.searchParams;
   // get url parameters
   const id = search_params.get("id");
+  //TODO :getting id of database
+  console.log("result", req.originalUrl);
 
   findInDatabase(id, (dbId) => {
     let o_id = new ObjectId(dbId); // id as a string is passed
     db.collection("products").findOne({ _id: o_id }, function (err, result) {
-      dbResult = result;
+      result;
       res.render("productview", { Render: result });
     });
   });
 });
+app.get("/cart", (req, res) => {
+  res.sendFile(path.join(__dirname+'/views/cart.html'));
+});
+
+
+app.get("/cartData", (req, res) => {
+  
+  var fullUrl = req.protocol + "://" + req.get("host") + req.originalUrl;
+  const current_url = new URL(fullUrl);
+  // get access to URLSearchParams object
+  const search_params = current_url.searchParams;
+  // get url parameters
+  const cartitems = search_params.get("cartitems");
+  let IdToArray = JSON.parse(cartitems);
+
+ try{
+  IdToArray.forEach((items) => {
+    findInDatabase(items, (dbId) => {
+      let o_id = new ObjectId(dbId); // id as a string is passed
+        db.collection("products").findOne({ _id: o_id }, function (err, result) {
+          // console.log("result is ",result);
+           Cartarray.push(result)
+
+      });
+    });
+  });
+ }
+ catch(error)
+ {
+  console.log("no items in cart");
+ }
+
+res.send(Cartarray)
+
+Cartarray=[]
+
+  //res.send(JSON.stringify(cartProcessedData[0]))
+});
+
 
 app.get("/upload", (req, res) => {
   let cookieSessionUuid = req.cookies.userData.uuid;

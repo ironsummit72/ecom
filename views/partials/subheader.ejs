@@ -27,13 +27,13 @@
         display: inline-block;
         width: 20px;
         height: 20px;
-        background: #ddd;
+      
         text-align: center;
         border-radius: 50%;
-        margin-left: 10px;
+        margin-left: -27%;
       }
     </style>
-    <header class="subheader">
+    <header class="subheader">`
       <ul>
         <li><a href="/">Home</a></li>
       </ul>
@@ -62,10 +62,29 @@
         <li>
           <a href="/cart">
             <img src="/icons/cart.svg" alt="" class="cart" />
-            <span class="cart-counter">1</span>
           </a>
+          <span class="cart-counter"  id="cart-counter"></span>
         </li>
       </ul>
     </header>
   </body>
+  <script>
+    let cartcount=localStorage.getItem('cartData');
+    let count =JSON.parse(cartcount).length;
+   let cart_counter= document.getElementById('cart-counter')
+   console.log('type of ',typeof count);
+if(localStorage.getItem('cartData')===null)
+{
+  
+}else{
+ 
+  cart_counter.innerText=count;
+  cart_counter.style.backgroundColor="black"
+  cart_counter.style.color="white"
+}
+
+    document.getElementById('cart-counter').innerHTML=count;
+   // console.log(count.length);
+
+  </script>
 </html>
