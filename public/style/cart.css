@@ -60,12 +60,27 @@ left: 2%;
 
 .producttitle {
   position: relative;
+  text-decoration: none;
+  color: black;
+  font-weight: bolder;
+  font-size: x-large;
 
 }
 
 .productprice {
   position: relative;
  
+}
+.delete-btn{
+  background-color: red;
+  padding: 10px;
+  border: none;
+  color:white;cursor: pointer;
+  margin-left: 50px;
+  position: relative;
+  left: 15%;
+  bottom: 50px;
+
 }
 
 /* .productprice {

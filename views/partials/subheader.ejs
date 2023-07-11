@@ -27,7 +27,7 @@
         display: inline-block;
         width: 20px;
         height: 20px;
-        background: #ddd;
+      
         text-align: center;
         border-radius: 50%;
         margin-left: -27%;
@@ -75,10 +75,12 @@
    console.log('type of ',typeof count);
 if(localStorage.getItem('cartData')===null)
 {
-  cart_counter.style.display="none";
+  
 }else{
-  cart_counter.style.display="inline-block";
-  cart_counter.innerHTML=count;
+ 
+  cart_counter.innerText=count;
+  cart_counter.style.backgroundColor="black"
+  cart_counter.style.color="white"
 }
 
     document.getElementById('cart-counter').innerHTML=count;
