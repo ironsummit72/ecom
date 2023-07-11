@@ -28,8 +28,9 @@
     async function getData(data) {
       try {
         const response = await fetch(
-          "http://localhost:3000/cartData?cartitems=" + data
+          window.location.origin+"/cartData?cartitems=" + data
         );
+        console.log();
         const cartData = await response.text();
         let fromServer = JSON.parse(cartData);
         fromServer.forEach((data) => {
