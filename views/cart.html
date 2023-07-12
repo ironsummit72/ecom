@@ -11,6 +11,7 @@
   <body>
     <section id="cart-section" class="cart-section">
 <div class="cart-containers" id="cart-containers">
+  
   <hr>
   <h1 id="heading">Shopping Cart</h1>
   <button class="delete-btn" id="delete-cart-items">Delete All Cart Items</button>
@@ -52,7 +53,7 @@
         cartTotal= cartItemPrices.reduce((a, b) => a + b, 0)
 
 
-          console.log("data ",dbId);
+         
           CreateCartItems(ProductName, ProductPrice, ProductImage,dbId);
         });
        cartAmount.innerText="Total: Rs. "+addCommas(cartTotal)
@@ -77,14 +78,38 @@
       const productprice=document.createElement('h3')
       productprice.className="productprice";
       productprice.innerText="Rs. "+addCommas(ProductPrice);
+      const btncontainer=document.createElement('div')
+      btncontainer.className='btncontainer'
+        const btnbuynow=document.createElement('button')
+         btnbuynow.className='buynow btn';
+        const btnremovefromcart=document.createElement('button')
+         btnremovefromcart.className='removefromcart btn';
+         btnremovefromcart.innerText="Remove From Cart"
+        btnbuynow.innerText="Buy Now"
 
+       btnremovefromcart.addEventListener('click',()=>{
+       let cartDataLocal= localStorage.getItem('cartData');
+       let ToArray=JSON.parse(cartDataLocal);
+       let index=ToArray.indexOf(DbId)
+       if (index > -1) { 
+       ToArray.splice(index, 1); 
+       localStorage.setItem("cartData",JSON.stringify(ToArray));
+       cartItem.style.display="none"
+      
+      }
 
-
+      })
+      
+      
+      
       
       cartItem.appendChild(productimage);
       cartItem.appendChild(infoDiv);
       infoDiv.appendChild(producttitle)
       infoDiv.appendChild(productprice)
+      btncontainer.appendChild(btnbuynow)
+      btncontainer.appendChild(btnremovefromcart);
+      cartItem.appendChild(btncontainer)
       cartcontainers.appendChild(cartItem)
     }
     function addCommas(x) {
