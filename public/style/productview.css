@@ -1,6 +1,10 @@
  /* font import */
  @import url("https://fonts.googleapis.com/css2?family=Alegreya&display=swap");
-
+:root{
+  --button-color:#441313;
+  --text-color:white;
+  
+}
  * {
    margin: 0;
    padding: 0;
@@ -59,15 +63,15 @@
    border: none;
    margin: 10%;
    margin-left: 10%;
-   color: white;
-   background-color: #441313;
+   color: var(--text-color);
+   background-color: var(--button-color);
    cursor: pointer;
    transition: 0.3s;
  }
  .addtocart:hover {
-   background-color: white;
-   color: #441313;
-   border: #441313 solid 0.5px;
+   background-color: var(--text-color);
+   color: var(--button-color);
+   border: var(--button-color) solid 0.5px;
  }
  .message {
   color:red;

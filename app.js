@@ -11,7 +11,8 @@ const url = require("url");
 const directory = "./uploads";
 const mongoose = require("mongoose");
 var MongoClient = require("mongodb").MongoClient;
-var database_url = "mongodb://127.0.0.1:27017/ecom";
+const DATABASE_NAME="ecom";
+var database_url = "mongodb://127.0.0.1:27017/"+DATABASE_NAME;
 let resultFromDatabase = "";
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
@@ -26,7 +27,7 @@ var bcrypt = require("bcryptjs");
 var cookieParser = require("cookie-parser");
 app.use(cookieParser());
 //connection establish
-mongoose.connect("mongodb://127.0.0.1:27017/ecom");
+mongoose.connect("mongodb://127.0.0.1:27017/"+DATABASE_NAME);
 var db = mongoose.connection;
 db.on("error", console.log.bind(console, "connection error"));
 db.once("open", function (callback) {
@@ -64,7 +65,7 @@ app.get("/", async function (req, res) {
   // Reciving data form mongodb
   MongoClient.connect(database_url, function (err, db) {
     if (err) throw err;
-    var dbo = db.db("ecom"); //database name
+    var dbo = db.db(DATABASE_NAME); //database name
     dbo
       .collection("products") //collection name
       .find({})
@@ -281,7 +282,7 @@ function deleteSessionData() {
         // delete the session table if exists
         MongoClient.connect(database_url, function (err, db) {
           if (err) throw err;
-          var dbo = db.db("ecom");
+          var dbo = db.db(DATABASE_NAME);
           dbo.collection("session").drop(function (err, delOK) {
             if (err) throw err;
             if (delOK) console.log("Collection deleted");

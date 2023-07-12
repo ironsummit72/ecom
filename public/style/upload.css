@@ -1,3 +1,7 @@
+:root{
+  --btn-color:brown;
+
+}
 .sec1 {
     height: auto;
     width: 80vw;
@@ -23,11 +27,12 @@
   .upload_image {
     border: none;
     padding: 20px;
-    background-color: brown;
+    background-color: var(--btn-color);
     color: white;
     margin-top: 10px;
     cursor: pointer;
     width: 400px;
+    border-radius: 30px;
   }
   .product_form {
     height: auto;

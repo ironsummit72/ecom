@@ -2,7 +2,10 @@
   margin: 0;
   padding: 0;
 }
-
+:root{
+  --description-color:brown;
+  --font-style-family:  system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
 /* fontlinks  */
 
 @import url("https://fonts.googleapis.com/css2?family=Alegreya&display=swap");
@@ -41,8 +44,9 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  color: brown;
-  font-family: "Alegreya", serif;
+  color: var(--description-color);
+  font-family: var(--font-style-family)
+ 
 }
 .producttitle {
   font-weight: 400;
