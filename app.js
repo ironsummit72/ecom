@@ -130,13 +130,13 @@ app.get("/cartData", (req, res) => {
  catch(error)
  {
   console.log("no items in cart");
+  Cartarray=[]
  }
 
 res.send(Cartarray)
 
 Cartarray=[]
 
-  //res.send(JSON.stringify(cartProcessedData[0]))
 });
 
 
