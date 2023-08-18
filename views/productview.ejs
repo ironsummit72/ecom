@@ -28,7 +28,7 @@
         <div class="product_InfoWrapper">
           <div class="productMeta">
             <h2 class="producttitle"><%=Render.ProductName%></h2>
-            <span class="productprice">Rs. <%=Render.ProductPrice%></span>
+            <span class="productprice">Rs. <%= Number(Render.ProductPrice).toLocaleString('en-IN')%></span>
             <form action="" method="post"></form>
             <button class="addtocart" id="addtocart">Add To Cart</button>
             <p id="message" class="message"></p>

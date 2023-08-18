@@ -35,7 +35,7 @@
     localStorage.removeItem('cartData')
   }
 
-    })
+    });
 
     getData(cartdata);
     async function getData(data) {
@@ -48,9 +48,9 @@
           let ProductName = data.ProductName;
           let ProductPrice = data.ProductPrice;
           let ProductImage = data.Paths[0].path;
-          let dbId=data._id
+          let dbId=data._id;
          cartItemPrices.push(parseInt(data.ProductPrice));
-        cartTotal= cartItemPrices.reduce((a, b) => a + b, 0)
+        cartTotal= cartItemPrices.reduce((a, b) => a + b, 0);
 
 
          
@@ -74,27 +74,27 @@
       const producttitle=document.createElement('a'); //product title created
       producttitle.className='producttitle';
       producttitle.innerText=ProductName;
-      producttitle.href="productview?id="+DbId
+      producttitle.href="productview?id="+DbId;
       const productprice=document.createElement('h3')
       productprice.className="productprice";
       productprice.innerText="Rs. "+addCommas(ProductPrice);
-      const btncontainer=document.createElement('div')
-      btncontainer.className='btncontainer'
-        const btnbuynow=document.createElement('button')
+      const btncontainer=document.createElement('div');
+      btncontainer.className='btncontainer';
+        const btnbuynow=document.createElement('button');
          btnbuynow.className='buynow btn';
-        const btnremovefromcart=document.createElement('button')
+        const btnremovefromcart=document.createElement('button');
          btnremovefromcart.className='removefromcart btn';
-         btnremovefromcart.innerText="Remove From Cart"
-        btnbuynow.innerText="Buy Now"
+         btnremovefromcart.innerText="Remove From Cart";
+        btnbuynow.innerText="Buy Now";
 
        btnremovefromcart.addEventListener('click',()=>{
        let cartDataLocal= localStorage.getItem('cartData');
        let ToArray=JSON.parse(cartDataLocal);
-       let index=ToArray.indexOf(DbId)
+       let index=ToArray.indexOf(DbId);
        if (index > -1) { 
        ToArray.splice(index, 1); 
        localStorage.setItem("cartData",JSON.stringify(ToArray));
-       cartItem.style.display="none"
+       cartItem.style.display="none";
       
       }
 
@@ -105,19 +105,16 @@
       
       cartItem.appendChild(productimage);
       cartItem.appendChild(infoDiv);
-      infoDiv.appendChild(producttitle)
-      infoDiv.appendChild(productprice)
-      btncontainer.appendChild(btnbuynow)
+      infoDiv.appendChild(producttitle);
+      infoDiv.appendChild(productprice);
+      btncontainer.appendChild(btnbuynow);
       btncontainer.appendChild(btnremovefromcart);
-      cartItem.appendChild(btncontainer)
-      cartcontainers.appendChild(cartItem)
+      cartItem.appendChild(btncontainer);
+      cartcontainers.appendChild(cartItem);
     }
     function addCommas(x) {
-    x = x.toString();
-    var pattern = /(-?\d+)(\d{3})/;
-    while (pattern.test(x))
-        x = x.replace(pattern, "$1,$2");
-    return x;
+      let num=Number(x);
+       return String(num.toLocaleString('en-IN'));
 }
   </script>
 </html>
