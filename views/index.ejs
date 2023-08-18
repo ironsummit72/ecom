@@ -18,7 +18,7 @@
             <img src="<%=ProductListArr[i].Paths[0].path%>" alt="" class="productimage">            
             <div class="desc">
                <a href="/productview?id=<%=ProductListArr[i]._id%>" class="product-title-link"><h2 class="producttitle"><%=ProductListArr[i].ProductName%></h2></a> 
-                <h3 class="productprice">Price: ₹ <%=ProductListArr[i].ProductPrice%> </h3>
+                <h3 class="productprice">Price: ₹ <%=Number(ProductListArr[i].ProductPrice).toLocaleString('en-IN')%> </h3>
             </div>
         </div>
 <%  }%>
