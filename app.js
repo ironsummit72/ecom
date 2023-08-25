@@ -10,25 +10,25 @@ const { log, error } = require("console");
 const url = require("url");
 const directory = "./uploads";
 const mongoose = require("mongoose");
-var MongoClient = require("mongodb").MongoClient;
+let MongoClient = require("mongodb").MongoClient;
 const DATABASE_NAME="ecom";
-var database_url = "mongodb://127.0.0.1:27017/"+DATABASE_NAME;
+let database_url = "mongodb://127.0.0.1:27017/"+DATABASE_NAME;
 let resultFromDatabase = "";
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/uploads", express.static("uploads"));
 app.use(bodyParser.urlencoded({ extended: true }));
-var ObjectId = require("mongodb").ObjectId;
+let ObjectId = require("mongodb").ObjectId;
 let onIp = false;
 
 let Cartarray=[]
 const uuid = require("./modules/uuid");
-var bcrypt = require("bcryptjs");
-var cookieParser = require("cookie-parser");
+let bcrypt = require("bcryptjs");
+let cookieParser = require("cookie-parser");
 app.use(cookieParser());
 //connection establish
 mongoose.connect("mongodb://127.0.0.1:27017/"+DATABASE_NAME);
-var db = mongoose.connection;
+let db = mongoose.connection;
 db.on("error", console.log.bind(console, "connection error"));
 db.once("open", function (callback) {
   console.log("connection succeeded");
@@ -52,7 +52,7 @@ const storage = multer.diskStorage({
   },
 });
 
-var upload = multer({ storage: storage }).any(directory);
+let upload = multer({ storage: storage }).any(directory);
 async function wait(ms) {
   return new Promise((resolve, reject) => {
     setTimeout(resolve, ms);
@@ -65,14 +65,14 @@ app.get("/", async function (req, res) {
   // Reciving data form mongodb
   MongoClient.connect(database_url, function (err, db) {
     if (err) throw err;
-    var dbo = db.db(DATABASE_NAME); //database name
+    let dbo = db.db(DATABASE_NAME); //database name
     dbo
       .collection("products") //collection name
       .find({})
       .toArray(function (err, result) {
         if (err) throw err;
 
-        for (var i = 0; i < result.length; i++) {
+        for (let i = 0; i < result.length; i++) {
           resultFromDatabase = result;
         }
         db.close();
@@ -83,7 +83,7 @@ app.get("/", async function (req, res) {
 });
 //product view html page
 app.get("/productview", function (req, res) {
-  var fullUrl = req.protocol + "://" + req.get("host") + req.originalUrl; // getting the full current url of the route
+  let fullUrl = req.protocol + "://" + req.get("host") + req.originalUrl; // getting the full current url of the route
   const current_url = new URL(fullUrl);
   // get access to URLSearchParams object
   const search_params = current_url.searchParams;
@@ -107,7 +107,7 @@ app.get("/cart", (req, res) => {
 
 app.get("/cartData", (req, res) => {
   
-  var fullUrl = req.protocol + "://" + req.get("host") + req.originalUrl;
+  let fullUrl = req.protocol + "://" + req.get("host") + req.originalUrl;
   const current_url = new URL(fullUrl);
   // get access to URLSearchParams object
   const search_params = current_url.searchParams;
@@ -282,7 +282,7 @@ function deleteSessionData() {
         // delete the session table if exists
         MongoClient.connect(database_url, function (err, db) {
           if (err) throw err;
-          var dbo = db.db(DATABASE_NAME);
+          let dbo = db.db(DATABASE_NAME);
           dbo.collection("session").drop(function (err, delOK) {
             if (err) throw err;
             if (delOK) console.log("Collection deleted");
