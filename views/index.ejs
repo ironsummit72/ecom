@@ -13,7 +13,7 @@
     <%- include('partials/subheader'); -%>
 
 <section class="products">
-    <% for(var i in ProductListArr) { %>
+    <% for(let i in ProductListArr) { %>
        <div class="product_container">
             <img src="<%=ProductListArr[i].Paths[0].path%>" alt="" class="productimage">            
             <div class="desc">
