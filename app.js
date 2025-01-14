@@ -1,7 +1,8 @@
-const port = process.env.PORT || 3000;
 const express = require("express");
+require('dotenv').config()
 const app = express();
 const path = require("path");
+const port = process.env.PORT || 3000;
 const ejs = require("ejs");
 const bodyParser = require("body-parser");
 const multer = require("multer");
@@ -11,7 +12,7 @@ const url = require("url");
 const directory = "./uploads";
 const mongoose = require("mongoose");
 var MongoClient = require("mongodb").MongoClient;
-var database_url = "mongodb://127.0.0.1:27017/ecom";
+var database_url = `${process.env.DB_URL}/${process.env.DB_NAME}`;
 let resultFromDatabase = "";
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
@@ -24,7 +25,7 @@ var bcrypt = require("bcryptjs");
 var cookieParser = require("cookie-parser");
 app.use(cookieParser());
 //connection establish
-mongoose.connect("mongodb://127.0.0.1:27017/ecom");
+mongoose.connect(database_url);
 var db = mongoose.connection;
 db.on("error", console.log.bind(console, "connection error"));
 db.once("open", function (callback) {

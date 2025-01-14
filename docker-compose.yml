@@ -1,0 +1,27 @@
+services:
+  ecom:
+   container_name: ecom
+   build:
+    dockerfile: Dockerfile
+    context: .
+   environment:
+   - DB_NAME=ecom
+   - DB_URL=mongodb://database:27017
+   - PORT=3001
+   ports:
+     - 3001:3001
+   depends_on:
+   - database
+   networks:
+   - ecom
+
+  database:
+   image: mongo
+   ports:
+     - 27018:27017
+   networks:
+   - ecom
+
+networks:
+  ecom:
+   driver: bridge
